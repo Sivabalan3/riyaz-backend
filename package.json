@@ -1,7 +1,7 @@
 {
   "scripts": {
     "server": "nodemon server.js",
-    "start": "node ../server.js"
+    "start": "node ./server.js"
   },
   "dependencies": {
     "antd": "^5.16.1",
