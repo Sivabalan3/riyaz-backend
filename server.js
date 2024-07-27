@@ -4,10 +4,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const path = require('path');
-const Grid = require('gridfs-stream');
-const { upload } = require('./config/serviceCardstorage');
-
-let gfs;
 
 // Import routes
 const userRoutes = require("./routes/userRoutes");
@@ -30,9 +26,7 @@ const connection = mongoose.connection;
 
 connection.once('open', () => {
   console.log('Database connected');
-  gfs = Grid(connection.db, mongoose.mongo);
-  gfs.collection('servicecard'); // Ensure this matches the bucket name in GridFsStorage
-  // app.use('/api', serviceCardRoutes);
+
 });
 
 // Use routes
@@ -49,8 +43,7 @@ app.use((err, req, res, next) => {
   res.json({ error: err.message });
 });
 
-const dirname = path.resolve();
-app.use('/uploads', express.static(path.join(dirname, '/servicecard')));
+
 // Start the server
 const PORT = process.env.PORT || 8001;
 app.listen(PORT, () => {
